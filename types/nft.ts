@@ -4,7 +4,6 @@ export type NftAttribute = {
   trait_type: Trait;
   value: string;
 }
-
 export type NftMetaData = {
   name: string;
   description: string;
