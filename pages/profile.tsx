@@ -9,4 +9,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;;
+export default Profile;
