@@ -27,5 +27,4 @@ const Home: NextPage = () => {
     </BaseLayout>
   )
 }
-
 export default Home
