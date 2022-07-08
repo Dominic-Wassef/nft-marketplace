@@ -1,4 +1,4 @@
-import { NftMetaData } from "../../../types/nft";
+import { NftMetaData } from "../../../../types/nft";
 
 /* eslint-disable @next/next/no-img-element */
 type NftItemProps = {
