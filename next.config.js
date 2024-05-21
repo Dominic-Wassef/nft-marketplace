@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    disableStaticImages: true
+    domains: [
+      "thrangra.sirv.com",
+      "img.freepik.com",
+    ]
   }
 }
 

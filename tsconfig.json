@@ -1,26 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl":".",
     "paths": {
-      "@ui": ["components/ui"],
-      "@ui/*": ["components/ui/*"],
-      "@_types/*": ["types/*"]
-    },
+      "@/*": ["./*"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
+      "@content/*": ["content/*"],
+      "@utils/*": ["utils/*"]
+
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/courses/index.tsx", "pages/index.tsx", "migrations/2_marketplace_migration.js"],
   "exclude": ["node_modules"]
 }

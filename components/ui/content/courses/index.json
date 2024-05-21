@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1410474",
+    "type": "Ethereal Echoes",
+    "title": "Ethereal Echoes",
+    "description": "An enigmatic digital canvas.",
+    "coverImage": "https://img.freepik.com/free-vector/anger-ape-biker-logo-isolated-black_43623-881.jpg",
+    "author": "Alethia Fray",
+    "link": "https://NFT-MARKETPLACE.com",
+    "slug": "ethereal-echoes",
+    "alt":"",
+    "wsl": [
+      "WSL '23 Nominee"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "1331625",
+    "type": "Quantum Dreamscapes",
+    "title": "Quantum Dreamscapes",
+    "description": "A cryptic visual symphony.",
+    "coverImage": "https://img.freepik.com/free-vector/gradient-installment-illustration_23-2149412094.jpg",
+    "author": "Ragnar Volkov",
+    "link": "https://NFT-MARKETPLACE.com",
+    "slug": "quantum-dreamscapes",
+    "alt":"",
+    "wsl": [
+      "WSL '20 Winner"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "1112431",
+    "type": "Celestial Whispers",
+    "title": "Celestial Whispers",
+    "description": " A mysterious digital masterpiece.",
+    "coverImage": "https://img.freepik.com/free-photo/beautiful-roman-figure-carving_23-2149413212.jpg",
+    "author": "Elara Moon",
+    "link": "https://NFT-MARKETPLACE.com",
+    "slug": "celestial-whispers",
+    "alt":"",
+    "wsl": [
+      "WSL '22 Honorable Mention"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "985237",
+    "type": "Nebula's Embrace",
+    "title": "Nebula's Embrace",
+    "description": "An obscure visual odyssey.",
+    "coverImage": "https://img.freepik.com/free-vector/digital-retro-cyber-surface-landscape-80s_107791-21135.jpg",
+    "author": "Orion Blackwood",
+    "link": "https://NFT-MARKETPLACE.com",
+    "slug": "nebulas-embrace",
+    "alt":"",
+    "wsl": [
+      "WSL '21 Finalist"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "925927",
+    "type": "Eclipse of Infinity",
+    "title": "Eclipse of Infinity",
+    "description": "An enigmatic virtual creation.",
+    "coverImage": "https://img.freepik.com/free-photo/neon-abstract-background-design_191095-444.jpg",
+    "author": "Jay K",
+    "link": "https://NFT-MARKETPLACE.com",
+    "slug": "eclipse-of-infinity",
+    "alt":"",
+    "wsl": [
+      "WSL '24 Shortlisted"
+    ],
+    "createdAt": ""
+  }
+]

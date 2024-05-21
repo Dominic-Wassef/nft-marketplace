@@ -1,83 +1,69 @@
-import { createContext, FunctionComponent, useContext, useEffect, useState } from "react"
-import { createDefaultState, createWeb3State, loadContract, Web3State } from "./utils";
-import { ethers } from "ethers";
-import { MetaMaskInpageProvider } from "@metamask/providers";
-import { NftMarketContract } from "@_types/nftMarketContract";
+const { createContext, useContext, useEffect, useState, useMemo } = require("react");
+import detectEthereumProvider from "@metamask/detect-provider";
+import {loadContract} from "@utils/loadContract"
+import Web3 from "web3";
+import { setupHooks } from "./hooks/setupHooks";
+const Web3Context = createContext(null)
 
-const pageReload = () => { window.location.reload(); }
-
-const handleAccount = (ethereum: MetaMaskInpageProvider) => async () => {
-  const isLocked =  !(await ethereum._metamask.isUnlocked());
-  if (isLocked) { pageReload(); }
+const setListeners = (provider:any) => {
+  provider.on("chainChanged", (_: any) => window.location.reload())
 }
 
-const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
-  ethereum.on("chainChanged", pageReload);
-  ethereum.on("accountsChanged", handleAccount(ethereum));
+const createWeb3State = ({web3, provider, contract, isLoading}:any) => {
+  return {
+    web3,
+    provider,
+    contract,
+    isLoading,
+    hooks: setupHooks({provider , web3 , contract })
+  }
 }
 
-const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
-  ethereum?.removeListener("chainChanged", pageReload);
-  ethereum?.removeListener("accountsChanged", handleAccount);
-}
-
-const Web3Context = createContext<Web3State>(createDefaultState());
-
-const Web3Provider: FunctionComponent = ({children}) => {
-  const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
-
+export default function Web3Provider({children}:any) {
+  const [web3Api, setWeb3Api] = useState(createWeb3State({web3:null , provider:null, contract:null , isLoading: true}))
   useEffect(() => {
-    async function initWeb3() {
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-        const contract =  await loadContract("NftMarket", provider);
+    const loadProvider = async () => {
+      const provider = await detectEthereumProvider()
+      if (provider) {
+        // Issue 2
+        const web3= new Web3(provider as any)
+        const contract = await loadContract("CourseMarketplace", web3)
+        setListeners(provider)
 
-        const signer = provider.getSigner();
-        const signedContract = contract.connect(signer);
-
-        setTimeout(() => setGlobalListeners(window.ethereum), 500);
-        setWeb3Api(createWeb3State({
-          ethereum: window.ethereum,
-          provider,
-          contract: signedContract as unknown as NftMarketContract,
-          isLoading: false
-        }))
-      } catch(e: any) {
-        console.error("Please, install web3 wallet");
-        setWeb3Api((api) => createWeb3State({
-          ...api as any,
-          isLoading: false,
-        }))
+        setWeb3Api(createWeb3State({web3, provider , contract , isLoading: false}))
+      } else {
+        setWeb3Api((api:any) => ({...api, isLoading: false}))
+        console.error("Please, install Metamask.")
       }
     }
-
-    initWeb3();
-    return () => removeGlobalListeners(window.ethereum);
+    loadProvider()
   }, [])
-
+  const _web3Api = useMemo(() => {
+    const { web3, provider, isLoading } = web3Api
+    return {
+      ...web3Api,
+      requireInstall: !isLoading && !web3 ,
+      connect: provider ?
+        async () => {
+          try {
+            await provider.request({method: "eth_requestAccounts"})
+          } catch {
+            location.reload()
+          }
+        } :
+        () => console.error("Cannot connect to Metamask, try to reload your browser please.")
+    }
+  }, [web3Api])
   return (
-    <Web3Context.Provider value={web3Api}>
+    <Web3Context.Provider value={_web3Api}>
       {children}
     </Web3Context.Provider>
   )
 }
-
 export function useWeb3() {
-  return useContext(Web3Context);
+  return useContext(Web3Context)
 }
-
-export function useHooks() {
-  const { hooks } = useWeb3();
-  return hooks;
+export function useHooks(cb:any) {
+  const { hooks } = useWeb3()
+  return cb(hooks)
 }
-
-export default Web3Provider;
-
-
-
-
-
-
-
-
-
